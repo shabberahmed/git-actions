@@ -12,14 +12,14 @@ jobs:
         node-version: [18.x]
     steps:
     - uses: actions/checkout@v4
+    - name: Stop PM2 processes
+      run: pm2 stop all || true
+    - name: Cleanup previous node_modules
+      run: rm -rf node_modules || true
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - name: Stop PM2 processes
-      run: pm2 stop all || true
-    - name: Cleanup node_modules
-      run: rm -rf node_modules || true
     - run: npm ci
     - run: pm2 restart all
