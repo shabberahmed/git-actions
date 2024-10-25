@@ -21,5 +21,5 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: rm -rf node_modules/@pm2/agent
     - run: npm ci
+    - run: pm2 restart all
